@@ -1,0 +1,124 @@
+.about-project {
+  max-width: calc(100% - 140px);
+  margin: 0 auto;
+  padding: 110px 0;
+}
+
+.about-project__header {
+  margin: 0;
+  padding-bottom: 23px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+  border-bottom: solid 1px #dadada;
+}
+
+.two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+}
+
+.two-columns__title {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.8px;
+  margin: 70px 0 0;
+}
+
+.two-columns__text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 26px 0 0;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: 228px 3fr;
+  margin: 110px 0 0;
+}
+
+.timeline__title {
+  text-align: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  padding: 9px 0 9px;
+  margin: 0 0 14px;
+  background-color: #303030;
+}
+
+.timeline__title_type_color {
+  background-color: #3ddc84;
+  color: #000;
+}
+
+.timeline__text {
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  margin: 0;
+}
+
+@media screen and (max-width: 1023px) {
+  .about-project {
+    max-width: calc(100% - 100px);
+    padding: 90px 0;
+  }
+  .two-columns {
+    column-gap: 30px;
+  }
+  .two-columns__text {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 22px 0 0;
+  }
+  .timeline {
+    grid-template-columns: 140px 3fr;
+    margin: 93px 0 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .about-project {
+    max-width: calc(100% - 36px);
+    padding: 70px 0;
+  }
+  .about-project__header {
+    padding-bottom: 28px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+  .two-columns {
+    display: flex;
+    flex-direction: column;
+  }
+  .two-columns__title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    margin: 55px 0 0;
+  }
+  .two-columns__text {
+    font-size: 11px;
+    line-height: 16px;
+    margin: 16px 0 0;
+  }
+  .timeline {
+    grid-template-columns: 100px 3fr;
+    margin: 60px 0 0;
+  }
+  .timeline__title {
+    font-size: 11px;
+  }
+  .timeline__text {
+    font-size: 11px;
+    line-height: normal;
+    margin: 0;
+  }
+}
