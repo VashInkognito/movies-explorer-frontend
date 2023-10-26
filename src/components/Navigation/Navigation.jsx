@@ -41,7 +41,7 @@ function Navigation() {
               </li>
             </ul>
           </div>
-          <Link to="/profile" className="navigation__link_type_profile-link">
+          <Link to="/profile" className="navigation__profile-link">
             Аккаунт
           </Link>
         </div>

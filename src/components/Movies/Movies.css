@@ -1,10 +1,10 @@
-.movies__button-container {
+.movies__container {
   display: flex;
   justify-content: center;
   margin: 76px 0 80px;
 }
 
-.movies__button {
+.movies__button_type_more {
   cursor: pointer;
   width: 320px;
   height: 38px;
@@ -17,7 +17,7 @@
   border: 1px solid #424242;
   transition: opacity 0.2s linear;
 }
-.movies__button:hover {
+.movies__button_type_more:hover {
   opacity: 0.8;
 }
 
@@ -26,13 +26,13 @@
 }
 
 @media screen and (max-width: 1023px) {
-  .movies__button-container {
+  .movies__container {
     margin: 65px 0 98px;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .movies__button {
+  .movies__button_type_more {
     width: 240px;
     height: 36px;
   }

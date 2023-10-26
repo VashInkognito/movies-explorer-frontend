@@ -6,7 +6,7 @@ function MoviesCard() {
   return (
     <li className="card">
       
-      <img src={cardImage} alt="#" className="card__image" />
+      <img src={cardImage} alt="Постер фильма" className="card__image" />
       <article className="card__title-block">
         <h2 className="card__title">33 слова о дизайне</h2>
         <p className="card__duration">1ч 17м</p>

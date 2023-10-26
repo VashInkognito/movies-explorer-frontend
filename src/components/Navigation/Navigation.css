@@ -1,6 +1,5 @@
 .navigation {
   width: 59%;
-  display: none; /**/
 }
 
 .navigation__menu {
@@ -77,7 +76,7 @@
   opacity: 0.7;
 }
 
-.navigation__link_type_profile-link {
+.navigation__profile-link {
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -92,7 +91,7 @@
   transition: opacity 0.2s linear;
 }
 
-.navigation__link_type_profile-link:hover {
+.navigation__profile-link:hover {
   opacity: 0.7;
 }
 
@@ -138,7 +137,7 @@
   }
 
   .navigation__container {
-    display: none;
+    display: none; /**убрать, чтобы посмотреть sidebar**/
   }
 
   .navigation__container {

@@ -4,7 +4,7 @@ import './MoviesCardList.css';
 
 function MoviesCardList() {
   return (
-    <section className="movies-card-list">
+    <section className="cards">
       <ul className="cards__list">
         <MoviesCard />
         <MoviesCard />

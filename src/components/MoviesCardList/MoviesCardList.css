@@ -1,4 +1,4 @@
-.movies-card-list {
+.cards {
   max-width: calc(1280px - 140px);
   margin: 0 auto;
   padding-top: 80px;
@@ -16,10 +16,8 @@
   list-style: none;
 }
 
-
-
 @media screen and (max-width: 1279px) {
-  .movies-card-list {
+  .cards {
     max-width: calc(100% - 60px);
   }
   .cards__list {
@@ -29,7 +27,7 @@
 }
 
 @media screen and (max-width: 800px) {
-  .movies-card-list {
+  .cards {
     max-width: calc(100% - 20px);
     padding-top: 50px;
   }

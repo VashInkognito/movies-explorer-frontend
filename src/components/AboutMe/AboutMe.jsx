@@ -11,7 +11,7 @@ function AboutMe() {
         
         <div className="about-me__info">
           <h3 className="about-me__title">Виталий</h3>
-          <p className="about-me__name__subtitle">
+          <p className="about-me__subtitle">
             Фронтенд-разработчик, 30 лет
           </p>
           <p className="about-me__text">

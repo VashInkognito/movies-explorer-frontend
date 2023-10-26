@@ -11,7 +11,7 @@ function Register() {
       paragraphLinkText="Уже зарегистрированы?"
       linkText="Войти"
     >
-      <label className="sign-form__item">
+      <fieldset className="sign-form__item">
         <p className="sign-form__item-text">Имя</p>
         <input
           type="text"
@@ -23,9 +23,9 @@ function Register() {
           maxLength={30}
         />
         <span className="sign-form__input-error">Что-то пошло не так...</span>
-      </label>
+      </fieldset>
 
-      <label className="sign-form__item">
+      <fieldset className="sign-form__item">
         <p className="sign-form__item-text">E-mail</p>
         <input
           type="email"
@@ -37,9 +37,9 @@ function Register() {
           maxLength={30}
         />
         <span className="sign-form__input-error">Что-то пошло не так...</span>
-      </label>
+      </fieldset>
 
-      <label className="sign-form__item">
+      <fieldset className="sign-form__item">
         <p className="sign-form__item-text">Пароль</p>
         <input
           type="password"
@@ -49,7 +49,7 @@ function Register() {
           required
         />
         <span className="sign-form__input-error">Что-то пошло не так...</span>
-      </label>
+      </fieldset>
     </SignForm>
   );
 }

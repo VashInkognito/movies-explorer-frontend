@@ -4,7 +4,7 @@
   padding: 100px 0;
 }
 
-.techs_header {
+.techs__header {
   max-width: calc(100% - 140px);
   font-size: 22px;
   font-weight: 400;
@@ -21,7 +21,7 @@
   align-items: center;
 }
 
-.techs_title {
+.techs__title {
   text-align: center;
   font-size: 50px;
   font-weight: 400;
@@ -68,10 +68,10 @@
   .techs {
     padding: 90px 0;
   }
-  .techs_header {
+  .techs__header {
     max-width: calc(100% - 100px);
   }
-  .techs_title {
+  .techs__title {
     margin: 80px 0 0;
   }
   .techs__text {
@@ -96,13 +96,13 @@
     padding: 70px 0;
     background: none;
   }
-  .techs_header {
+  .techs__header {
     max-width: calc(100% - 36px);
     font-size: 18px;
     letter-spacing: -0.72px;
     padding-bottom: 28px;
   }
-  .techs_title {
+  .techs__title {
     font-size: 30px;
     line-height: normal;
     letter-spacing: -1.2px;

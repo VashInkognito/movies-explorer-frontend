@@ -10,18 +10,18 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './SavedMovies.css';
 
 const MoreButton = () => (
-  <button type="button" className="movies__button movies__button_type_hidden">
+  <button type="button" className="movies__button movies__button_type_more movies__button_type_hidden">
         Ещё
       </button>
 )
 
 function SavedMovies() {
   return (
-    <section className="saved-movies">
+    <section className="movies">
       <Header />
       <SearchForm/>
       <MoviesCardList/>
-      <div className="movies__button-container">
+      <div className="movies__container">
       <MoreButton/>
       </div>
       <Footer />

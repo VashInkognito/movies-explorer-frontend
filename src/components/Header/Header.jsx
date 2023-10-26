@@ -13,7 +13,7 @@ function Header() {
           <img className="header__logo" src={headerLogo} alt="Логотип" />
         </Link>
 
-      <nav className="header__nav">
+      {/* <nav className="header__nav">
         <ul className="header__list">
           <li>
             <Link to="/signup" className="header__nav-link">
@@ -26,7 +26,7 @@ function Header() {
             </Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       <Navigation />
     </header>

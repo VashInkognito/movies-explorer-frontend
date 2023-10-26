@@ -10,7 +10,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './Movies.css';
 
 const MoreButton = () => (
-  <button type="button" className="movies__button">
+  <button type="button" className="movies__button movies__button_type_more">
         Ещё
       </button>
 )
@@ -24,7 +24,7 @@ function Movies() {
       <Preloader />
       
       <MoviesCardList/>
-      <div className="movies__button-container">
+      <div className="movies__container">
       <MoreButton/>
       </div>
       <Footer />

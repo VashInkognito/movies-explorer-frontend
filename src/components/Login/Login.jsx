@@ -12,7 +12,7 @@ function Login() {
       linkText="Регистрация"
     >
 
-      <label className="sign-form__item">
+      <fieldset className="sign-form__item">
         <p className="sign-form__item-text">E-mail</p>
         <input
           type="email"
@@ -24,9 +24,9 @@ function Login() {
           maxLength={30}
         />
         <span className="sign-form__input-error">Что-то пошло не так...</span>
-      </label>
+      </fieldset>
 
-      <label className="sign-form__item">
+      <fieldset className="sign-form__item">
         <p className="sign-form__item-text">Пароль</p>
         <input
           type="password"
@@ -36,7 +36,7 @@ function Login() {
           required
         />
         <span className="sign-form__input-error">Что-то пошло не так...</span>
-      </label>
+      </fieldset>
     </SignForm>
   );
 }

@@ -3,7 +3,7 @@ import './NavTab.css';
 
 function NavTab() {
   return (
-    <nav>
+    <nav className="nav-tab">
       <ul className="nav-tab__links">
         <li>
           <a href="#about-project" className="nav-tab__link">
