@@ -1,0 +1,38 @@
+.cards {
+  max-width: calc(1280px - 140px);
+  margin: 0 auto;
+  padding-top: 80px;
+}
+
+.cards__list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 360px);
+  justify-content: center; /*нужно ли*/
+  column-gap: 30px;
+  row-gap: 60px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (max-width: 1279px) {
+  .cards {
+    max-width: calc(100% - 60px);
+  }
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, 340px);
+    row-gap: 45px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .cards {
+    max-width: calc(100% - 20px);
+    padding-top: 50px;
+  }
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, 300px);
+    row-gap: 36px;
+  }
+}
