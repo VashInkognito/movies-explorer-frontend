@@ -63,6 +63,10 @@
   line-height: normal;
 }
 
+.sign-form__input_type_error {
+  color: #ee3465;
+}
+
 .sign-form__input:focus {
   border-radius: 0%;
   background: none;
@@ -97,6 +101,14 @@
   line-height: normal;
   cursor: pointer;
   transition: opacity 0.2s linear;
+}
+
+.sign-form__button-submit_disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+  cursor: default;
+  pointer-events: none;
+  transition: none;
 }
 
 .sign-form__button-submit:hover {

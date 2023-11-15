@@ -3,6 +3,7 @@
 Репозиторий для приложения проекта `Movies`, включающий фронтенд часть приложения со следующими возможностями: авторизации и регистрации пользователей, операции с фильмами.
 
 Адрес репозитория: https://github.com/VashInkognito/movies-explorer-frontend
+Ссылку на пул реквест: https://github.com/VashInkognito/movies-explorer-frontend/pull/2
 
 ## Название макета
 

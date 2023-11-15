@@ -1,68 +1,133 @@
 import React from 'react';
 
-import Header from '../Header/Header';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 import './Profile.css';
 
-function Profile() {
+function Profile({ isLoggedIn, onEditProfile, onSignOut }) {
+  const currentUser = React.useContext(CurrentUserContext);
+  // переменная-состояния редактирования профиля
+  const [isProfileEditingMode, setIsProfileEditingMode] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  // валидация
+  const { values, setValues, handleChange, errors, isValid, setIsValid } =
+    useFormWithValidation(currentUser);
+  /*----------------------------------------------------------------------------------------------------------------*/
+  function handleSwitchProfileEditingMode() {
+    setIsProfileEditingMode((state) => !state);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setIsLoading(true);
+    if (
+      values.name !== currentUser.name ||
+      values.email !== currentUser.email
+    ) {
+      onEditProfile(values['name'], values['email']);
+      handleSwitchProfileEditingMode();
+    } else {
+      setIsValid(false);
+      setIsLoading(false);
+    }
+  }
+  /*----------------------------------------------------------------------------------------------------------------*/
+  // отображение инпут-значений профиля
+  React.useEffect(() => {
+    setValues({
+      name: currentUser.name,
+      email: currentUser.email,
+    });
+  }, [currentUser.name, currentUser.email, setValues]);
+  /*----------------------------------------------------------------------------------------------------------------*/
   return (
     <section className="profile">
-      <Header />
       <div className="profile__container">
-        <h2 className="profile__title">Привет, Виталий!</h2>
-        <form className="profile__form">
-          <label className="profile__inputs">
-            <span className="profile__form-text">Имя</span>
+        <h2 className="profile__title">{`Привет, ${currentUser.name}!`}</h2>
+        <form className="profile__form" onSubmit={handleSubmit}>
+          <fieldset className="profile__inputs">
+            <p className="profile__form-text">Имя</p>
             <input
               type="text"
               name="name"
-              className="profile__input"
+              className={`profile__input ${
+                errors.name ? 'profile__input_type_error' : ''
+              }`}
               required
-              placeholder="Виталий"
-              minLength={8}
+              placeholder="Имя"
+              minLength={2}
               maxLength={30}
+              value={values['name'] || ''}
+              onChange={handleChange}
+              {...(!isProfileEditingMode || isLoading
+                ? { disabled: true }
+                : {})}
             />
-          </label>
-          <span className="profile__input-error">Что-то пошло не так...</span>
+          </fieldset>
+          <span
+            className={`profile__input-error ${
+              errors.name ? 'profile__input-error_active' : ''
+            }`}
+          >
+            {errors.name}
+          </span>
+
           <div className="profile__border"></div>
-          <label className="profile__inputs profile__inputs_border">
-            <span className="profile__form-text">E-mail</span>
+
+          <fieldset className="profile__inputs">
+            <p className="profile__form-text">E-mail</p>
             <input
               type="email"
               name="email"
-              className="profile__input"
+              className={`profile__input ${
+                errors.email ? 'profile__input_type_error' : ''
+              }`}
               required
-              placeholder="pochta@yandex.ru"
-              minLength={8}
-              maxLength={30}
+              placeholder="E-mail"
+              value={values['email'] || ''}
+              onChange={handleChange}
+              {...(!isProfileEditingMode || isLoading
+                ? { disabled: true }
+                : {})}
             />
-          </label>
-          <span className="profile__input-error">Что-то пошло не так...</span>
-          <div>
-          <button
-            className="profile__button profile__button_type_edit-profile"
-            type="submit"
+          </fieldset>
+          <span
+            className={`profile__input-error ${
+              errors.email ? 'profile__input-error_active' : ''
+            }`}
           >
-            Редактировать
-          </button>
-          <button
-            className="profile__button profile__button_type_logout"
-            type="submit"
-          >
-            Выйти из аккаунта
-          </button>
-          </div>
-          {/* <div>
-            <span className="profile__button-error">
-              При обновлении профиля произошла ошибка.
-            </span>
-            <button
-              className="profile__button profile__button_type_save"
-              type="submit"
-            >
-              Сохранить
-            </button>
-          </div> */}
+            {errors.email}
+          </span>
+
+          {isProfileEditingMode ? (
+            <>
+              <button
+                className={`profile__button profile__button_type_save ${
+                  !isValid || isLoading ? 'profile__button_type_disabled' : ''
+                }`}
+                type="submit"
+              >
+                {isLoading ? 'Сохранение...' : 'Сохранить'}
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="profile__button profile__button_type_edit-profile"
+                onClick={handleSwitchProfileEditingMode}
+              >
+                Редактировать
+              </button>
+              <button
+                className="profile__button profile__button_type_logout"
+                onClick={onSignOut}
+              >
+                Выйти из аккаунта
+              </button>
+            </>
+          )}
         </form>
       </div>
     </section>
