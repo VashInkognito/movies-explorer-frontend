@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:3000';
-// const BASE_URL = 'https://api.vashinkognito.movies.nomoredomainsrocks.ru';
+// const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://api.vashinkognito.movies.nomoredomainsrocks.ru';
 
 function getResponseData(res) {
   if (res.ok) {

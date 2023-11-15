@@ -61,8 +61,8 @@ class Api {
 
 // Создание экземпляра класса Api
 const MainApi = new Api({
-  baseUrl: 'http://localhost:3000/',
-  // baseUrl: 'https://api.vashinkognito.movies.nomoredomainsrocks.ru/',
+  // baseUrl: 'http://localhost:3000/',
+  baseUrl: 'https://api.vashinkognito.movies.nomoredomainsrocks.ru/',
   headers: {
     Authorization: `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json',
