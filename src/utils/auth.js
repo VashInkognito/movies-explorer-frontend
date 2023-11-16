@@ -29,3 +29,18 @@ export const authorize = (email, password) => {
     body: JSON.stringify({ email, password }),
   }).then((res) => getResponseData(res));
 };
+
+// проверка достоверности токена на сервере
+export const checkToken = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => getResponseData(res))
+    .then((data) => {
+      return data;
+    });
+};

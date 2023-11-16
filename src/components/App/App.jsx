@@ -51,25 +51,26 @@ function App() {
   //------------------------------------АВТОРИЗАЦИЯ-----------------------------//
 
   React.useEffect(() => {
-    setIsLoading(true);
-    if (isLoggedIn) {
-      // Забираем с сервера инф о пользователе и фильмы
-      Promise.all([MainApi.getCurrentUserInfo(), MainApi.getSavedMovies()])
-        .then(([user, savedMovies]) => {
-          setCurrentUser(user);
-          const ownUserMovies = savedMovies.filter(
-            (movie) => movie.owner === currentUser._id
-          );
-          // сохраняем токен c фильмами
-          localStorage.setItem('savedMovies', JSON.stringify(ownUserMovies));
-          setSavedMovies(ownUserMovies);
+    handleTokenCheck();
+  }, []);
+
+  function handleTokenCheck() {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      auth
+        .checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setIsLoggedIn(true);
+            navigate('/movies', { replace: true });
+          } else {
+            setIsLoggedIn(false);
+          }
         })
-        .catch((err) => console.log(`Ошибка: ${err}`))
-        .finally(() => {
-          setIsLoading(false);
-        });
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`)});
     }
-  }, [isLoggedIn, currentUser._id]);
+  }
 
   function handleRegistration(name, email, password) {
     setIsLoading(true);
@@ -132,6 +133,27 @@ function App() {
     });
     navigate('/', { replace: true });
   }
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    if (isLoggedIn) {
+      // Забираем с сервера инф о пользователе и фильмы
+      Promise.all([MainApi.getCurrentUserInfo(), MainApi.getSavedMovies()])
+        .then(([user, savedMovies]) => {
+          setCurrentUser(user);
+          const ownUserMovies = savedMovies.filter(
+            (movie) => movie.owner === currentUser._id
+          );
+          // сохраняем токен c фильмами
+          localStorage.setItem('savedMovies', JSON.stringify(ownUserMovies));
+          setSavedMovies(ownUserMovies);
+        })
+        .catch((err) => console.log(`Ошибка: ${err}`))
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [isLoggedIn, currentUser._id]);
 
   //-----------------------------------------------ПРОФИЛЬ--------------------//
 
