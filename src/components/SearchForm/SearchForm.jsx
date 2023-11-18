@@ -4,11 +4,12 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 import './SearchForm.css';
 
-function SearchForm({ handleSearchMovie }) {
+function SearchForm({ handleSearchMovie, isLoading }) {
   const { pathname } = useLocation();
   // состояние чекбокса для выбора короткометражек
   const [shorts, setShorts] = React.useState(false);
   const [inputSearch, setInputSearch] = React.useState('');
+
   /*----------------------------------------------------------------------------------------------------------------*/
   function handleChangeInput(e) {
     setInputSearch(e.target.value);
@@ -61,7 +62,11 @@ function SearchForm({ handleSearchMovie }) {
           value={inputSearch}
           onChange={handleChangeInput}
         />
-        <button type="submit" className="search__button"></button>
+        <button
+          type="submit"
+          className="search__button"
+          disabled={isLoading}
+        ></button>
       </form>
       <FilterCheckbox value={shorts} onChange={handelCheckbox} />
     </section>

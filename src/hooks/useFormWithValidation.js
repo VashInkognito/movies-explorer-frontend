@@ -1,6 +1,8 @@
 import React from 'react';
 
+
 import isEmail from 'validator/es/lib/isEmail';
+
 
 export const useFormWithValidation = () => {
   const [values, setValues] = React.useState({});
@@ -22,9 +24,6 @@ export const useFormWithValidation = () => {
         input.setCustomValidity('');
       }
     }
-    
-
-    // /^[а-яА-ЯЁёa-zA-Z -
 
     if (name === 'name') {
       if (!/^[\wа-яА-ЯЁёa-zA-Z\s-]+$/.test(value)) {
@@ -39,14 +38,14 @@ export const useFormWithValidation = () => {
     setIsValid(input.closest('form').checkValidity());
   }
 
-  // const resetForm = React.useCallback(
-  //   (newValues = {}, newErrors = {}, newIsValid = false) => {
-  //     setValues(newValues);
-  //     setErrors(newErrors);
-  //     setIsValid(newIsValid);
-  //   },
-  //   [setValues, setErrors, setIsValid]
-  // );
+  const resetForm = React.useCallback(
+    (newValues = {}, newErrors = {}, newIsValid = false) => {
+      setValues(newValues);
+      setErrors(newErrors);
+      setIsValid(newIsValid);
+    },
+    [setValues, setErrors, setIsValid]
+  );
 
-  return { values, setValues, handleChange, errors, isValid, setIsValid };
+  return { values, setValues, handleChange, errors, isValid, setIsValid, resetForm };
 }

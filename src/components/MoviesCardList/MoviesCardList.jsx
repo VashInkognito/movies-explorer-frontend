@@ -4,11 +4,22 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 import { useLocation } from 'react-router-dom';
 
+import {
+  DESKTOP_WIDTH,
+  MOBILE_WIDTH,
+  LARGE_QUANTITY_OF_MOVIE,
+  LARGE_STEP,
+  MEDIUM_QUANTITY_OF_MOVIE,
+  MEDIUM_STEP,
+  SMALL_QUANTITY_OF_MOVIE,
+  SMALL_STEP,
+} from '../../utils/constants';
+
 function MoviesCardList({ allMovies, savedMovies, onSave, onDelete, error }) {
   const { pathname } = useLocation();
   /*----------------------------------------------------------------------------------------------------------------*/
   // возвращает ширину окна в пикселях
-  const width = window.innerWidth;
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
   // суммарное количество карточек
   const [quantityOfMovie, setQuantityOfMovie] = React.useState(0);
   // колличество прибавленных карточек
@@ -17,31 +28,29 @@ function MoviesCardList({ allMovies, savedMovies, onSave, onDelete, error }) {
   function hadleMoreButton() {
     setQuantityOfMovie(quantityOfMovie + oneStepMore);
   }
-  function rulesForRenderMoviesInARow() {
-    const width = window.innerWidth;
+
+  function handleUpdateWindowWidth() {
+    setTimeout(() => setWindowWidth(window.innerWidth), 1000);
+  }
+
+  React.useEffect(() => {
+    window.addEventListener('resize', handleUpdateWindowWidth);
     if (pathname === '/saved-movies') {
       setQuantityOfMovie(allMovies.length);
     }
-    if (width >= 1280) {
-      setQuantityOfMovie(12);
-      setOneStepMore(3);
-    } else if (width >= 768 && width < 1280) {
-      setQuantityOfMovie(8);
-      setOneStepMore(2);
-    } else if (width < 767) {
-      setQuantityOfMovie(5);
-      setOneStepMore(2);
+    if (windowWidth >= DESKTOP_WIDTH) {
+      setQuantityOfMovie(LARGE_QUANTITY_OF_MOVIE);
+      setOneStepMore(LARGE_STEP);
+    } else if (windowWidth >= MOBILE_WIDTH && windowWidth < DESKTOP_WIDTH) {
+      setQuantityOfMovie(MEDIUM_QUANTITY_OF_MOVIE);
+      setOneStepMore(MEDIUM_STEP);
+    } else if (windowWidth < MOBILE_WIDTH) {
+      setQuantityOfMovie(SMALL_QUANTITY_OF_MOVIE);
+      setOneStepMore(SMALL_STEP);
     }
-  }
-  // отрисовка карточек в ряд
-  React.useEffect(() => {
-    rulesForRenderMoviesInARow();
-    window.addEventListener('resize', () => {
-      setTimeout(() => {
-        rulesForRenderMoviesInARow();
-      }, 1000);
-    });
-  }, [width]);
+    return () => window.removeEventListener('resize', handleUpdateWindowWidth);
+  }, [windowWidth]);
+
   /*----------------------------------------------------------------------------------------------------------------*/
   const MoreButton = () => (
     <button

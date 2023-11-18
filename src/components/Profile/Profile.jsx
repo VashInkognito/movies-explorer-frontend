@@ -5,42 +5,51 @@ import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 import './Profile.css';
 
-function Profile({ isLoggedIn, onEditProfile, onSignOut }) {
+function Profile({ isLoggedIn, onEditProfile, onSignOut, isLoading }) {
   const currentUser = React.useContext(CurrentUserContext);
   // переменная-состояния редактирования профиля
   const [isProfileEditingMode, setIsProfileEditingMode] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-
+  // создаем новый объект с контекстом пользователя для сравнения с values инпутов
+  const currentUserData = { name: currentUser.name, email: currentUser.email };
   // валидация
-  const { values, setValues, handleChange, errors, isValid, setIsValid } =
-    useFormWithValidation(currentUser);
+  const {
+    values,
+    setValues,
+    handleChange,
+    errors,
+    isValid,
+    setIsValid,
+    resetForm,
+  } = useFormWithValidation(currentUser);
   /*----------------------------------------------------------------------------------------------------------------*/
+  // переключатель состояния редактирования профиля
   function handleSwitchProfileEditingMode() {
     setIsProfileEditingMode((state) => !state);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
-    if (
-      values.name !== currentUser.name ||
-      values.email !== currentUser.email
-    ) {
-      onEditProfile(values['name'], values['email']);
-      handleSwitchProfileEditingMode();
-    } else {
-      setIsValid(false);
-      setIsLoading(false);
-    }
+    onEditProfile(values['name'], values['email']);
+    handleSwitchProfileEditingMode();
   }
   /*----------------------------------------------------------------------------------------------------------------*/
   // отображение инпут-значений профиля
   React.useEffect(() => {
+    resetForm();
     setValues({
       name: currentUser.name,
       email: currentUser.email,
     });
-  }, [currentUser.name, currentUser.email, setValues]);
+  }, [resetForm, currentUser.name, currentUser.email, setValues]);
+  // сравнивание инпут-значений с контекстом
+  React.useEffect(() => {
+    if (
+      values['name'] === currentUserData.name &&
+      values['email'] === currentUserData.email
+    ) {
+      setIsValid(false);
+    }
+  }, [currentUserData, values, setIsValid]);
   /*----------------------------------------------------------------------------------------------------------------*/
   return (
     <section className="profile">
@@ -108,6 +117,7 @@ function Profile({ isLoggedIn, onEditProfile, onSignOut }) {
                   !isValid || isLoading ? 'profile__button_type_disabled' : ''
                 }`}
                 type="submit"
+                disabled={!isValid || isLoading}
               >
                 {isLoading ? 'Сохранение...' : 'Сохранить'}
               </button>

@@ -18,9 +18,9 @@ function SavedMovies({ savedMovies, setSavedMovies }) {
   const [error, setError] = React.useState('');
   /*----------------------------------------------------------------------------------------------------------------*/
   // отрисовка сохраненных фильмов
-  React.useEffect(() => {
-    setSavedMoviesRender(savedMovies);
-  }, []);
+  // React.useEffect(() => {
+  //   setSavedMoviesRender(savedMovies);
+  // }, [savedMovies]);
   /*----------------------------------------------------------------------------------------------------------------*/
   // Функция-отработчик формы найти фильм на странице saved-movie
   function handleSearchMovie(inputSearch, shorts) {
@@ -40,6 +40,7 @@ function SavedMovies({ savedMovies, setSavedMovies }) {
     setSavedMoviesRender(filteredSavedMovie);
     setIsLoading(false);
   }
+
   // Функция-отработчик удаления сохраненного фильма
   function handleDeleteMovie(movieId, setIsSaved) {
     MainApi.deleteMovie(movieId)
@@ -51,25 +52,30 @@ function SavedMovies({ savedMovies, setSavedMovies }) {
         setSavedMoviesRender((state) => state.filter((m) => m._id !== movieId));
         // переменная состояния сохраненного/не сохраненного фильма
         setIsSaved(false);
-        const storedSavedMovies = JSON.parse(
-          localStorage.getItem('savedMovies')
-        );
-        let index = 0;
-        for (let i = 0; i < storedSavedMovies.length; i += 1) {
-          const film = storedSavedMovies[i];
-          if (film._id === savedMovies._id) {
-            index = i;
-          }
-        }
-        storedSavedMovies.splice(index, 1);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
       .catch(() => setError(BAD_REQUEST_MOVIE));
   }
   /*----------------------------------------------------------------------------------------------------------------*/
+  React.useEffect(() => {
+    // удалила ньюмуви из токена "сохраненные фильмы"
+    const storedSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    let index = 0;
+    for (let i = 0; i < storedSavedMovies.length; i += 1) {
+      const film = storedSavedMovies[i];
+      if (film._id === savedMovies._id) {
+        index = i;
+      }
+    }
+    storedSavedMovies.splice(index, 1);
+    localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+  }, [
+    localStorage.setItem('savedMovies', JSON.stringify(savedMovies)),
+    savedMovies,
+  ]);
+  /*----------------------------------------------------------------------------------------------------------------*/
   return (
     <section className="movies">
-      <SearchForm handleSearchMovie={handleSearchMovie} />
+      <SearchForm handleSearchMovie={handleSearchMovie} isLoading={isLoading} />
       {isLoading ? (
         <Preloader />
       ) : (

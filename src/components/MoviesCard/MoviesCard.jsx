@@ -2,6 +2,8 @@ import React from 'react';
 import './MoviesCard.css';
 import { useLocation } from 'react-router-dom';
 
+import { URL_BEATFILM } from '../../utils/constants';
+
 function MoviesCard({ savedMovies, onSave, onDelete, ...props }) {
   const { pathname } = useLocation();
   // переменная состояния сохраненного/не сохраненного фильма
@@ -23,12 +25,11 @@ function MoviesCard({ savedMovies, onSave, onDelete, ...props }) {
       duration: props.duration,
       year: props.year,
       description: props.description,
-      image: 'https://api.nomoreparties.co/' + props.image.url,
+      image: URL_BEATFILM + props.image.url,
       trailerLink: props.trailerLink,
       nameRU: props.nameRU,
       nameEN: props.nameEN,
-      thumbnail:
-        'https://api.nomoreparties.co/' + props.image.formats.thumbnail.url,
+      thumbnail: URL_BEATFILM + props.image.formats.thumbnail.url,
       movieId: props.id,
     };
     onSave(movieData, setIsSaved);
@@ -44,7 +45,7 @@ function MoviesCard({ savedMovies, onSave, onDelete, ...props }) {
       <img
         src={
           pathname === '/movies'
-            ? `https://api.nomoreparties.co/${props.image.url}`
+            ? `${URL_BEATFILM}${props.image.url}`
             : props.image
         }
         alt={props.nameRU}

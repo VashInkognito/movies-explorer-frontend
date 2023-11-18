@@ -12,6 +12,7 @@ function SignForm({
   linkText,
   onSubmit,
   isValid,
+  isLoading,
   children,
 }) {
   return (
@@ -25,9 +26,10 @@ function SignForm({
 
         <button
           className={`sign-form__button-submit sign-form__button-submit_type_${name} ${
-            !isValid ? 'sign-form__button-submit_disabled' : ''
+            !isValid && isLoading ? 'sign-form__button-submit_disabled' : ''
           }`}
           type="submit"
+          disabled={!isValid && isLoading}
         >
           {buttonText}
         </button>

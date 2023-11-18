@@ -67,11 +67,6 @@ function Movies({ savedMovies, setSavedMovies }) {
         setSavedMovies([...savedMovies, newMovie]);
         // переменная состояния сохраненного/не сохраненного фильма
         setIsSaved(true);
-        const storedSavedMovies = JSON.parse(
-          localStorage.getItem('savedMovies')
-        );
-        storedSavedMovies.push(newMovie);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
       .catch(() => setError(BAD_REQUEST_MOVIE));
   }
@@ -86,26 +81,36 @@ function Movies({ savedMovies, setSavedMovies }) {
         setSavedMovies((state) => state.filter((m) => m._id !== idSavedMovie));
         // переменная состояния сохраненного/не сохраненного фильма
         setIsSaved(false);
-        const storedSavedMovies = JSON.parse(
-          localStorage.getItem('savedMovies')
-        );
-        let index = 0;
-        for (let i = 0; i < storedSavedMovies.length; i += 1) {
-          const film = storedSavedMovies[i];
-          if (film._id === savedMovies._id) {
-            index = i;
-          }
-        }
-        storedSavedMovies.splice(index, 1);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
       .catch(() => setError(NOT_FOUND_MOVIE));
   }
   /*----------------------------------------------------------------------------------------------------------------*/
-
+  React.useEffect(() => {
+    const storedSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    // добавила ньюмуви в токен "сохраненные фильмы"
+    if (!savedMovies) {
+      savedMovies = [];
+      storedSavedMovies.push(savedMovies);
+      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+    }
+    // удалила ньюмуви из токена "сохраненные фильмы"
+    let index = 0;
+    for (let i = 0; i < storedSavedMovies.length; i += 1) {
+      const film = storedSavedMovies[i];
+      if (film._id === savedMovies._id) {
+        index = i;
+      }
+    }
+    storedSavedMovies.splice(index, 1);
+    localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+  }, [
+    localStorage.setItem('savedMovies', JSON.stringify(savedMovies)),
+    savedMovies,
+  ]);
+  /*----------------------------------------------------------------------------------------------------------------*/
   return (
     <section className="movies">
-      <SearchForm handleSearchMovie={handleSearchMovie} />
+      <SearchForm handleSearchMovie={handleSearchMovie} isLoading={isLoading} />
       {isLoading ? (
         <Preloader />
       ) : (

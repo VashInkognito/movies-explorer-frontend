@@ -3,7 +3,7 @@ import React from 'react';
 import SignForm from '../SignForm/SignForm';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-function Login({ onLogin }) {
+function Login({ onLogin, isLoading }) {
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   function handleSubmit(e) {
@@ -20,6 +20,7 @@ function Login({ onLogin }) {
       linkText="Регистрация"
       onSubmit={handleSubmit}
       isValid={isValid}
+      isLoading={isLoading}
     >
       <fieldset className="sign-form__item">
         <p className="sign-form__item-text">E-mail</p>

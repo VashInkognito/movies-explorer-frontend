@@ -3,15 +3,15 @@ import React from 'react';
 import SignForm from '../SignForm/SignForm';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-function Register({ onRegistration }) {
+function Register({ onRegistration, isLoading }) {
   // валидация
   const { values, handleChange, errors, isValid } = useFormWithValidation();
-/*----------------------------------------------------------------------------------------------------------------*/
+  /*----------------------------------------------------------------------------------------------------------------*/
   function handleSubmit(evt) {
     evt.preventDefault();
     onRegistration(values['name'], values['email'], values['password']);
   }
-/*----------------------------------------------------------------------------------------------------------------*/
+  /*----------------------------------------------------------------------------------------------------------------*/
   return (
     <SignForm
       title="Добро пожаловать!"
@@ -21,6 +21,7 @@ function Register({ onRegistration }) {
       linkText="Войти"
       onSubmit={handleSubmit}
       isValid={isValid}
+      isLoading={isLoading}
     >
       <fieldset className="sign-form__item">
         <p className="sign-form__item-text">Имя</p>
