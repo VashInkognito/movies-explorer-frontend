@@ -94,13 +94,16 @@ function App() {
   React.useEffect(() => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
+      const realLocation = pathname;
       auth
         .checkToken(jwt)
         .then((res) => {
           if (res) {
             setIsLoggedIn(true);
+            navigate(realLocation, { replace: true });
           } else {
             setIsLoggedIn(false);
+            navigate('/', { replace: true });
           }
         })
         .catch((err) => {
