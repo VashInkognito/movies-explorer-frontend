@@ -30,7 +30,9 @@ function AboutProject() {
 
       <div className="timeline">
         <div className="timeline__item">
-          <h4 className="timeline__title timeline__title_type_color">1 неделя</h4>
+          <h4 className="timeline__title timeline__title_type_color">
+            1 неделя
+          </h4>
           <p className="timeline__text">Back-end</p>
         </div>
 

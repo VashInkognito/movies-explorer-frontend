@@ -1,8 +1,17 @@
 import React from 'react';
 
 import SignForm from '../SignForm/SignForm';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-function Register() {
+function Register({ onRegistration, isLoading }) {
+  // валидация
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
+  /*----------------------------------------------------------------------------------------------------------------*/
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onRegistration(values['name'], values['email'], values['password']);
+  }
+  /*----------------------------------------------------------------------------------------------------------------*/
   return (
     <SignForm
       title="Добро пожаловать!"
@@ -10,19 +19,32 @@ function Register() {
       buttonText="Зарегистрироваться"
       paragraphLinkText="Уже зарегистрированы?"
       linkText="Войти"
+      onSubmit={handleSubmit}
+      isValid={isValid}
+      isLoading={isLoading}
     >
       <fieldset className="sign-form__item">
         <p className="sign-form__item-text">Имя</p>
         <input
           type="text"
           name="name"
-          className="sign-form__input"
-          placeholder="Имя"
+          className={`sign-form__input ${
+            errors.name ? 'sign-form__input_type_error' : ''
+          }`}
+          placeholder="Введите имя"
           required
-          minLength={8}
+          minLength={2}
           maxLength={30}
+          value={values['name'] || ''}
+          onChange={handleChange}
         />
-        <span className="sign-form__input-error">Что-то пошло не так...</span>
+        <span
+          className={`sign-form__input-error ${
+            errors.name ? 'sign-form__input-error_active' : ''
+          }`}
+        >
+          {errors.name}
+        </span>
       </fieldset>
 
       <fieldset className="sign-form__item">
@@ -30,13 +52,21 @@ function Register() {
         <input
           type="email"
           name="email"
-          className="sign-form__input"
-          placeholder="E-mail"
+          className={`sign-form__input ${
+            errors.email ? 'sign-form__input_type_error' : ''
+          }`}
+          placeholder="Введите e-mail"
           required
-          minLength={8}
-          maxLength={30}
+          value={values['email'] || ''}
+          onChange={handleChange}
         />
-        <span className="sign-form__input-error">Что-то пошло не так...</span>
+        <span
+          className={`sign-form__input-error ${
+            errors.email ? 'sign-form__input-error_active' : ''
+          }`}
+        >
+          {errors.email}
+        </span>
       </fieldset>
 
       <fieldset className="sign-form__item">
@@ -44,11 +74,22 @@ function Register() {
         <input
           type="password"
           name="password"
-          className="sign-form__input"
-          placeholder="Пароль"
+          className={`sign-form__input ${
+            errors.password ? 'sign-form__input_type_error' : ''
+          }`}
+          placeholder="Введите пароль"
+          minLength="6"
           required
+          value={values['password'] || ''}
+          onChange={handleChange}
         />
-        <span className="sign-form__input-error">Что-то пошло не так...</span>
+        <span
+          className={`sign-form__input-error ${
+            errors.password ? 'sign-form__input-error_active' : ''
+          }`}
+        >
+          {errors.password}
+        </span>
       </fieldset>
     </SignForm>
   );

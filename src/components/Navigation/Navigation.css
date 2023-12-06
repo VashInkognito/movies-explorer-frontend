@@ -131,16 +131,17 @@
 
 /*-----------------------------------------------------------------------------*/
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 800px) {
   .navigation__burger-button {
     display: flex;
   }
 
   .navigation__container {
-    display: none; /**убрать, чтобы посмотреть sidebar**/
+    display: none; 
   }
 
-  .navigation__container {
+  .navigation__container_visible {
+    display: block;
     position: fixed;
     width: 100%;
     top: 0;
@@ -149,7 +150,7 @@
   }
 
   /**оверлэй**/
-  .navigation__container:before {
+  .navigation__container_visible:before {
     content: '';
     position: absolute;
     top: 0;
